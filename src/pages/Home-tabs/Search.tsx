@@ -20,26 +20,7 @@ function Search() {
 
   return (
     <div className="p-4 max-w-3xl mx-auto">
-      {/* IT Definition Card */}
-      <IonCard color="light" style={definitionStyle}>
-        <IonCardHeader>
-          <IonCardTitle style={titleStyle}>What is Information Technology?</IonCardTitle>
-        </IonCardHeader>
-        <IonCardContent style={contentStyle}>
-          Information Technology (IT) refers to the use of systems (especially computers and telecommunications) for storing, retrieving, and sending information. It plays a key role in modern communication, data handling, and business operations.
-        </IonCardContent>
-      </IonCard>
-
-      {/* Reorderable List */}
-      <IonList
-        lines="none"
-        style={{
-          borderRadius: '12px',
-          overflow: 'hidden',
-          boxShadow: '0 4px 16px rgba(0,0,0,0.1)',
-          background: '#f9fafb',
-        }}
-      >
+        
         <IonReorderGroup disabled={false} onIonItemReorder={handleReorder}>
           {[
             'Networking & Communication',
@@ -54,7 +35,7 @@ function Search() {
             </IonItem>
           ))}
         </IonReorderGroup>
-      </IonList>
+        
     </div>
   );
 }
