@@ -1,8 +1,6 @@
-import React from 'react';
-import {
+import { 
   IonItem,
   IonLabel,
-  IonList,
   IonReorder,
   IonReorderGroup,
   IonCard,
@@ -11,63 +9,92 @@ import {
   IonCardTitle,
   ItemReorderEventDetail,
 } from '@ionic/react';
+import React from 'react';
 
 function Search() {
-  function handleReorder(event: CustomEvent<ItemReorderEventDetail>) {
+  const handleReorder = (event: CustomEvent<ItemReorderEventDetail>) => {
     console.log('Dragged from index', event.detail.from, 'to', event.detail.to);
     event.detail.complete();
-  }
+  };
+
+  const topics = [
+    '🌐 Networking & Communication',
+    '💾 Data Storage & Management',
+    '🔐 Cybersecurity Fundamentals',
+    '🛠️ Software Development',
+    '☁️ Cloud Computing & Services',
+  ];
 
   return (
-    <div className="p-4 max-w-3xl mx-auto">
-        
-        <IonReorderGroup disabled={false} onIonItemReorder={handleReorder}>
-          {[
-            'Networking & Communication',
-            'Data Storage & Management',
-            'Cybersecurity Fundamentals',
-            'Software Development',
-            'Cloud Computing & Services',
-          ].map((topic, index) => (
-            <IonItem key={index} style={itemStyle}>
-              <IonLabel style={labelStyle}>{topic}</IonLabel>
-              <IonReorder slot="end" />
-            </IonItem>
-          ))}
-        </IonReorderGroup>
-        
-    </div>
+    <>
+      <style>{`
+        .wrapper {
+          padding: 1rem;
+          max-width: 600px;
+          margin: 0 auto;
+        }
+
+        .reorder-card {
+          box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
+          border-radius: 20px;
+          background: #ffffff;
+          border: 1px solid #e2e8f0;
+        }
+
+        .reorder-title {
+          font-size: 1.6rem;
+          font-weight: 700;
+          color: #0f172a;
+          text-align: center;
+          padding: 1rem 0 0.5rem;
+        }
+
+        .reorder-item {
+          background: linear-gradient(90deg,rgb(20, 56, 92),rgb(122, 162, 202));
+          border-radius: 14px;
+          margin-bottom: 12px;
+          padding: 14px 18px;
+          transition: all 0.25s ease;
+          cursor: grab;
+        }
+
+        .reorder-item:hover {
+          background: #e2e8f0;
+          transform: scale(1.015);
+          box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .reorder-label {
+          font-size: 1rem;
+          font-weight: 600;
+          color: #1e293b;
+        }
+
+        .reorder-group {
+          padding-top: 4px;
+        }
+      `}</style>
+
+      <div className="wrapper">
+        <IonCard className="reorder-card">
+          <IonCardHeader>
+            <IonCardTitle className="reorder-title">📚 Reorder Topics</IonCardTitle>
+          </IonCardHeader>
+
+          <IonCardContent>
+            <IonReorderGroup className="reorder-group" disabled={false} onIonItemReorder={handleReorder}>
+              {topics.map((topic, index) => (
+                <IonItem key={index} lines="inset" className="reorder-item">
+                  <IonLabel className="reorder-label">{topic}</IonLabel>
+                  <IonReorder slot="end" />
+                </IonItem>
+              ))}
+            </IonReorderGroup>
+          </IonCardContent>
+        </IonCard>
+      </div>
+    </>
   );
 }
-
-// 🎨 Styles
-const definitionStyle = {
-  backgroundColor: '#e0f2fe',
-  borderLeft: '5px solid #3b82f6',
-  marginBottom: '20px',
-};
-
-const titleStyle = {
-  fontSize: '1.4rem',
-  color: '#1e3a8a',
-  fontWeight: 'bold',
-};
-
-const contentStyle = {
-  fontSize: '1rem',
-  color: '#374151',
-};
-
-const itemStyle = {
-  padding: '12px 16px',
-  backgroundColor: '#ffffff',
-  borderBottom: '1px solid #e5e7eb',
-};
-
-const labelStyle = {
-  fontSize: '1rem',
-  fontWeight: 500,
-  color: '#111827',
-};
 
 export default Search;
