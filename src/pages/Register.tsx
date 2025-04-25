@@ -18,9 +18,9 @@ import {
 } from '@ionic/react';
 import { supabase } from '../utils/supabaseClient';
 import bcrypt from 'bcryptjs';
-
+ 
 const AlertBox: React.FC<{ message: string; isOpen: boolean; onClose: () => void }> = ({ message, isOpen, onClose }) => {
-  return (
+  return ( 
     <IonAlert
       isOpen={isOpen}
       onDidDismiss={onClose}

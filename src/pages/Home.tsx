@@ -20,17 +20,13 @@ import {
   import Favorites from './home-tabs/Favorites';
   import Feed from './home-tabs/Feed';
   import Search from './home-tabs/Search';
-
-
-
+ 
   const Home: React.FC = () => {
-
-    const tabs = [
+    const tabs = [ 
       {name:'Feed', tab:'feed',url: '/it35-lab/app/home/feed', icon: bookOutline},
       {name:'Search', tab:'search', url: '/it35-lab/app/home/search', icon: search},
       {name:'Favorites',tab:'favorites', url: '/it35-lab/app/home/favorites', icon: star},
-    ]
-
+  ] 
     return (
       <IonReactRouter>
       <IonTabs>
@@ -54,6 +50,5 @@ import {
       </IonTabs>
     </IonReactRouter>
     );
-  };
-  
+  }; 
   export default Home;

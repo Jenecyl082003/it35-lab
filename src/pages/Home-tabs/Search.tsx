@@ -1,5 +1,4 @@
-import React from 'react';
-import {
+import { 
   IonItem,
   IonLabel,
   IonReorder,
@@ -10,6 +9,7 @@ import {
   IonCardTitle,
   ItemReorderEventDetail,
 } from '@ionic/react';
+import React from 'react';
 
 function Search() {
   const handleReorder = (event: CustomEvent<ItemReorderEventDetail>) => {
@@ -28,44 +28,50 @@ function Search() {
   return (
     <>
       <style>{`
-        .reorder-card {
-          box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
-          border-radius: 16px;
-          overflow: hidden;
-          background: #ffffff;
-        }
-
-        .reorder-title {
-          font-size: 1.5rem;
-          font-weight: 700;
-          color: #1d4ed8;
-          text-align: center;
-          padding: 8px 0;
-        }
-
-        .reorder-item {
-          background: #f1f5f9;
-          border-radius: 10px;
-          margin-bottom: 10px;
-          padding: 12px 16px;
-          transition: all 0.2s ease;
-        }
-
-        .reorder-item:hover {
-          background: #e2e8f0;
-          box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-        }
-
-        .reorder-label {
-          font-size: 1rem;
-          font-weight: 500;
-          color: #0f172a;
-        }
-
         .wrapper {
           padding: 1rem;
           max-width: 600px;
           margin: 0 auto;
+        }
+
+        .reorder-card {
+          box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
+          border-radius: 20px;
+          background: #ffffff;
+          border: 1px solid #e2e8f0;
+        }
+
+        .reorder-title {
+          font-size: 1.6rem;
+          font-weight: 700;
+          color: #0f172a;
+          text-align: center;
+          padding: 1rem 0 0.5rem;
+        }
+
+        .reorder-item {
+          background: linear-gradient(90deg,rgb(20, 56, 92),rgb(122, 162, 202));
+          border-radius: 14px;
+          margin-bottom: 12px;
+          padding: 14px 18px;
+          transition: all 0.25s ease;
+          cursor: grab;
+        }
+
+        .reorder-item:hover {
+          background: #e2e8f0;
+          transform: scale(1.015);
+          box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .reorder-label {
+          font-size: 1rem;
+          font-weight: 600;
+          color: #1e293b;
+        }
+
+        .reorder-group {
+          padding-top: 4px;
         }
       `}</style>
 
@@ -76,7 +82,7 @@ function Search() {
           </IonCardHeader>
 
           <IonCardContent>
-            <IonReorderGroup disabled={false} onIonItemReorder={handleReorder}>
+            <IonReorderGroup className="reorder-group" disabled={false} onIonItemReorder={handleReorder}>
               {topics.map((topic, index) => (
                 <IonItem key={index} lines="inset" className="reorder-item">
                   <IonLabel className="reorder-label">{topic}</IonLabel>
@@ -90,5 +96,5 @@ function Search() {
     </>
   );
 }
- 
+
 export default Search;
