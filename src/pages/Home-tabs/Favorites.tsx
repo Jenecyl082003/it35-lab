@@ -8,91 +8,115 @@ import {
 } from '@ionic/react';
 
 function Favorites() {
-  const values = ['first', 'second', 'third', 'fourth', 'fifth', 'sixth'];
+  const quotes = [
+    {
+      value: 'first',
+      icon: '🚀',
+      title: 'Dream Big',
+      quote: '“The future belongs to those who believe in the beauty of their dreams.”',
+      author: 'Eleanor Roosevelt'
+    },
+    {
+      value: 'second',
+      icon: '🔥',
+      title: 'Stay Focused',
+      quote: '“Don’t watch the clock; do what it does. Keep going.”',
+      author: 'Sam Levenson'
+    },
+    {
+      value: 'third',
+      icon: '🌟',
+      title: 'Make It Happen',
+      quote: '“Success doesn’t just find you. You have to go out and get it.”',
+      author: 'Unknown'
+    },
+    {
+      value: 'fourth',
+      icon: '💡',
+      title: 'Believe in Yourself',
+      quote: '“Believe you can and you\'re halfway there.”',
+      author: 'Theodore Roosevelt'
+    },
+    {
+      value: 'fifth',
+      icon: '💥',
+      title: 'Never Give Up',
+      quote: '“Our greatest glory is not in never falling, but in rising every time we fall.”',
+      author: 'Confucius'
+    },
+    {
+      value: 'sixth',
+      icon: '🌈',
+      title: 'Stay Positive',
+      quote: '“Keep your face always toward the sunshine—and shadows will fall behind you.”',
+      author: 'Walt Whitman'
+    }
+  ];
 
-  const accordionGroupChange = (event: AccordionGroupCustomEvent) => {
-    const collapsedItems = values.filter((value) => value !== event.detail.value);
-    const selectedValue = event.detail.value;
-
+  const handleAccordionChange = (event: AccordionGroupCustomEvent) => {
+    const newValue = event.detail.value;
+    const collapsed = quotes.map(q => q.value).filter(v => v !== newValue);
     console.log(
-      `Expanded: ${selectedValue === undefined ? 'None' : selectedValue} | Collapsed: ${collapsedItems.join(', ')}`
+      `Expanded: ${newValue ?? 'None'} | Collapsed: ${collapsed.join(', ')}`
     );
   };
 
   return (
-    <IonAccordionGroup onIonChange={accordionGroupChange}>
-      <IonAccordion value="first">
-        <IonItem slot="header" color="light">
-          <IonLabel>🚀 Dream Big</IonLabel>
-        </IonItem>
-        <div className="ion-padding quote-content" slot="content">
-          <blockquote>
-            “The future belongs to those who believe in the beauty of their dreams.”<br />
-            <span>– Eleanor Roosevelt</span>
-          </blockquote>
-        </div>
-      </IonAccordion>
+    <>
+      <style>{`
+        .quote-content {
+          animation: fadeIn 0.3s ease-in-out;
+        }
 
-      <IonAccordion value="second">
-        <IonItem slot="header" color="light">
-          <IonLabel>🔥 Stay Focused</IonLabel>
-        </IonItem>
-        <div className="ion-padding quote-content" slot="content">
-          <blockquote>
-            “Don’t watch the clock; do what it does. Keep going.”<br />
-            <span>– Sam Levenson</span>
-          </blockquote>
-        </div>
-      </IonAccordion>
+        @keyframes fadeIn {
+          from {
+            opacity: 0;
+            transform: translateY(8px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
 
-      <IonAccordion value="third">
-        <IonItem slot="header" color="light">
-          <IonLabel>🌟 Make It Happen</IonLabel>
-        </IonItem>
-        <div className="ion-padding quote-content" slot="content">
-          <blockquote>
-            “Success doesn’t just find you. You have to go out and get it.”<br />
-            <span>– Unknown</span>
-          </blockquote>
-        </div>
-      </IonAccordion>
+        ion-accordion[aria-expanded="true"] ion-item {
+          background-color: #d0ebff;
+          transition: background-color 0.3s ease;
+        }
 
-      <IonAccordion value="fourth">
-        <IonItem slot="header" color="light">
-          <IonLabel>💡 Believe in Yourself</IonLabel>
-        </IonItem>
-        <div className="ion-padding quote-content" slot="content">
-          <blockquote>
-            “Believe you can and you're halfway there.”<br />
-            <span>– Theodore Roosevelt</span>
-          </blockquote>
-        </div>
-      </IonAccordion>
+        ion-item {
+          --padding-start: 16px;
+          --inner-padding-end: 16px;
+        }
 
-      <IonAccordion value="fifth">
-        <IonItem slot="header" color="light">
-          <IonLabel>💥 Never Give Up</IonLabel>
-        </IonItem>
-        <div className="ion-padding quote-content" slot="content">
-          <blockquote>
-            “Our greatest glory is not in never falling, but in rising every time we fall.”<br />
-            <span>– Confucius</span>
-          </blockquote>
-        </div>
-      </IonAccordion>
+        blockquote {
+          margin: 0;
+          font-style: italic;
+        }
 
-      <IonAccordion value="sixth">
-        <IonItem slot="header" color="light">
-          <IonLabel>🌈 Stay Positive</IonLabel>
-        </IonItem>
-        <div className="ion-padding quote-content" slot="content">
-          <blockquote>
-            “Keep your face always toward the sunshine—and shadows will fall behind you.”<br />
-            <span>– Walt Whitman</span>
-          </blockquote>
-        </div>
-      </IonAccordion>
-    </IonAccordionGroup>
+        blockquote span {
+          display: block;
+          margin-top: 0.5rem;
+          font-weight: bold;
+        }
+      `}</style>
+
+      <IonAccordionGroup expand="inset" onIonChange={handleAccordionChange}>
+        {quotes.map(({ value, icon, title, quote, author }) => (
+          <IonAccordion key={value} value={value}>
+            <IonItem slot="header">
+              <IonLabel>{`${icon} ${title}`}</IonLabel>
+            </IonItem>
+            <div className="quote-content ion-padding" slot="content">
+              <blockquote>
+                {quote}<br />
+                <span>– {author}</span>
+              </blockquote>
+            </div>
+          </IonAccordion>
+        ))}
+      </IonAccordionGroup>
+    </>
   );
 }
 
