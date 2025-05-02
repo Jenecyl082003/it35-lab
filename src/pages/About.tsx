@@ -6,8 +6,7 @@ import {
       IonPage, 
       IonTitle, 
       IonToolbar 
-  } from '@ionic/react';
-  
+  } from '@ionic/react'; 
   const About: React.FC = () => {
     return (
       <IonPage>

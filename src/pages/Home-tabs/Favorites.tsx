@@ -7,6 +7,7 @@ import {
 } from '@ionic/react';
 import React from 'react';
 
+
 function Favorites() {
   const values = ['first', 'second', 'third', 'fourth', 'fifth', 'sixth'];
 

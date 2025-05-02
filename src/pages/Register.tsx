@@ -109,7 +109,7 @@ const Register: React.FC = () => {
               <IonInput label="Username" labelPlacement="floating" fill="outline" value={username} onIonChange={e => setUsername(e.detail.value!)} placeholder="e.g. juan123" />
               <IonInput label="First Name" labelPlacement="floating" fill="outline" value={firstName} onIonChange={e => setFirstName(e.detail.value!)} placeholder="e.g. Juan" />
               <IonInput label="Last Name" labelPlacement="floating" fill="outline" value={lastName} onIonChange={e => setLastName(e.detail.value!)} placeholder="e.g. Dela Cruz" />
-              <IonInput label="Email Address" labelPlacement="floating" fill="outline" type="email" value={email} onIonChange={e => setEmail(e.detail.value!)} placeholder="yourname@gmail.com" />
+              <IonInput label="Email Address" labelPlacement="floating" fill="outline" type="email" value={email} onIonChange={e => setEmail(e.detail.value!)} placeholder="yourname@gmail.com or nbsc.edu.ph" />
               <IonInput label="Password" labelPlacement="floating" fill="outline" type="password" value={password} onIonChange={e => setPassword(e.detail.value!)} placeholder="Minimum 6 characters">
                 <IonInputPasswordToggle slot="end" />
               </IonInput>

@@ -6,8 +6,7 @@ import {
   IonRow, IonInputPasswordToggle, IonImg, IonAvatar, IonCard, IonCardContent, IonSpinner
 } from '@ionic/react';
 import { supabase } from '../utils/supabaseClient';
-import { useHistory } from 'react-router-dom';
-
+import { useHistory } from 'react-router-dom'; 
 const EditAccount: React.FC = () => {
   const [formData, setFormData] = useState({
     email: '',

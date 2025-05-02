@@ -80,7 +80,6 @@ function Search() {
           <IonCardHeader>
             <IonCardTitle className="reorder-title">📚 Reorder Topics</IonCardTitle>
           </IonCardHeader>
-
           <IonCardContent>
             <IonReorderGroup className="reorder-group" disabled={false} onIonItemReorder={handleReorder}>
               {topics.map((topic, index) => (
