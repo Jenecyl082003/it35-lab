@@ -1,9 +1,7 @@
 import { 
   IonAlert, 
-  IonAvatar, 
   IonButton, 
   IonContent, 
-  IonIcon, 
   IonInput, 
   IonInputPasswordToggle,  
   IonPage,  
@@ -12,7 +10,6 @@ import {
   IonToast,  
   useIonRouter 
 } from '@ionic/react';
-import { logoIonic } from 'ionicons/icons';
 import { useState } from 'react';
 import { supabase } from '../utils/supabaseClient';
 
@@ -77,92 +74,120 @@ const Login: React.FC = () => {
   return (
     <IonPage>
       <IonContent className="ion-padding">
+        {/* Background with gradient */}
         <div style={{
+          background: 'linear-gradient(to right, #6a11cb, #2575fc)', // Gradient effect
+          height: '100vh',
           display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
           justifyContent: 'center',
-          height: '100vh', // Center vertically
-          padding: '20px',
-          backgroundColor: '#f8f9fa',
-          borderRadius: '15px',
-          boxShadow: '0 2px 20px rgba(0, 0, 0, 0.1)',
+          alignItems: 'center',
         }}>
-          <IonAvatar
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              width: '120px',
-              height: '120px',
-              borderRadius: '50%',
-              marginBottom: '20px',
-              backgroundColor: '#007bff',
-            }}
-          >
-            <IonIcon 
-              icon={logoIonic}
-              color='light'
-              style={{ fontSize: '60px' }} 
+          <div style={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            height: '80vh', // Container height
+            padding: '30px',
+            backgroundColor: '#ffffff',
+            borderRadius: '15px',
+            boxShadow: '0 8px 20px rgba(0, 0, 0, 0.1)',
+            textAlign: 'center',
+            width: '90%',
+            maxWidth: '400px', // Max width for a clean look
+          }}>
+            <IonText color="primary" style={{ marginBottom: '20px', fontSize: '2rem', fontWeight: '600' }}>
+              <h1>Welcome Back!</h1>
+              <p>Login to your account</p>
+            </IonText>
+
+            <IonInput
+              label="Email"
+              labelPlacement="floating"
+              fill="outline"
+              type="email"
+              placeholder="Enter Email"
+              value={email}
+              onIonChange={e => setEmail(e.detail.value!)}
+              required
+              style={{
+                width: '100%',
+                marginBottom: '20px',
+                borderRadius: '10px',
+                backgroundColor: '#f1f1f1',
+                paddingLeft: '12px',
+                color: 'black',
+              }}
             />
-          </IonAvatar>
 
-          <IonText color="primary" style={{ marginBottom: '20px' }}>
-            <h1>USER LOGIN</h1>
-          </IonText>
+            <IonInput
+              label="Password"
+              labelPlacement="floating"
+              fill="outline"
+              type="password"
+              placeholder="Enter Password"
+              value={password}
+              onIonChange={e => setPassword(e.detail.value!)}
+              required
+              style={{
+                width: '100%',
+                marginBottom: '25px',
+                borderRadius: '10px',
+                backgroundColor: '#f1f1f1',
+                paddingLeft: '12px',
+                color: 'black',
+              }}
+            >
+              
+              <IonInputPasswordToggle slot="end" />
+            </IonInput>
 
-          <IonInput
-            label="Email"
-            labelPlacement="floating"
-            fill="outline"
-            type="email"
-            placeholder="Enter Email"
-            value={email}
-            onIonChange={e => setEmail(e.detail.value!)}
-            required
-            style={{ width: '100%', marginBottom: '15px' }}
-          />
+            <IonButton 
+              onClick={doLogin} 
+              expand="full" 
+              shape="round" 
+              color="primary" 
+              disabled={isLoading} 
+              style={{
+                marginBottom: '20px',
+                padding: '15px',
+                fontSize: '1.2rem',
+                textTransform: 'uppercase',
+              }}
+            >
+              {isLoading ? 'Logging In...' : 'Login'}
+            </IonButton>
 
-          <IonInput
-            label="Password"
-            labelPlacement="floating"
-            fill="outline"
-            type="password"
-            placeholder="Enter Password"
-            value={password}
-            onIonChange={e => setPassword(e.detail.value!)}
-            required
-            style={{ width: '100%', marginBottom: '25px' }}
-          >
-            <IonInputPasswordToggle slot="end" />
-          </IonInput>
+            <IonButton 
+              routerLink="/it35-lab/register" 
+              expand="full" 
+              fill="clear" 
+              shape="round" 
+              color="secondary"
+              style={{ fontWeight: '500' }}
+            >
+              Don't have an account? Register here
+            </IonButton>
 
-          <IonButton onClick={doLogin} expand="full" shape="round" color="primary" disabled={isLoading} style={{ marginBottom: '15px' }}>
-            {isLoading ? 'Logging In...' : 'Login'}
-          </IonButton>
+            {/* Reusable AlertBox Component */}
+            <AlertBox message={alertMessage} isOpen={showAlert} onClose={() => setShowAlert(false)} />
 
-          <IonButton routerLink="/it35-lab/register" expand="full" fill="clear" shape="round" color="secondary">
-            Don't have an account? Register here
-          </IonButton>
+            {/* IonToast for success message */}
+            <IonToast
+              isOpen={showToast}
+              onDidDismiss={() => setShowToast(false)}
+              message="Login successful! Redirecting..."
+              duration={1500}
+              position="top"
+              color="primary"
+            />
 
-          {/* Reusable AlertBox Component */}
-          <AlertBox message={alertMessage} isOpen={showAlert} onClose={() => setShowAlert(false)} />
-
-          {/* IonToast for success message */}
-          <IonToast
-            isOpen={showToast}
-            onDidDismiss={() => setShowToast(false)}
-            message="Login successful! Redirecting..."
-            duration={1500}
-            position="top"
-            color="primary"
-          />
-
-          {/* IonLoading for loading state */}
-          <IonLoading
-            isOpen={isLoading}
-            message={'Please wait...'}
-          />
+            {/* IonLoading for loading state */}
+            <IonLoading
+              isOpen={isLoading}
+              message={'Please wait...'}
+            />
+          </div>
         </div>
       </IonContent>
     </IonPage>
